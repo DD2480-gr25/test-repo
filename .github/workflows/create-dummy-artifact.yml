@@ -11,7 +11,8 @@ jobs:
     steps:
     - name: 1. Setup dummy artifact
       run: >
-        mkdir staging
+        mkdir staging &&
+        echo "text" > staging/file.txt
 
     - name: 2. Upload artifact
       uses: actions/upload-artifact@v2
