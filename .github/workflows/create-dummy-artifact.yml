@@ -9,12 +9,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: 1. Setup dummy artifact
+    - uses: actions/checkout@v2
+    - name: 1. Setup Java
+      uses: actions/setup-java@v2
+      with:
+          java-version: '17'
+          distribution: 'temurin'
+          
+    - name: 2. Build
       run: >
+        mvn -B package &&
         mkdir staging &&
-        echo "text" > staging/file.txt
-
-    - name: 2. Upload artifact
+        cp target/*.jar staging
+    
+    - name: 3. Upload artifact
       uses: actions/upload-artifact@v2
       with:
         name: github-actions-artifact
